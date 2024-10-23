@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BSU Community Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            max-width: 500px;
+        }
+        button {
+            display: block;
+            margin: 10px 0;
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>BSU Community Quiz</h1>
+    <div id="quiz"></div>
+    <script>
+        const questions = [
+            {
+                question: "Sino ang pinakatanaga sa BSU community?",
+                answers: ["Seprioto Brian", "Caballero Christian"],
+                correct: 0 // index of the correct answer
+            },
+            {
+                question: "Sino ang feeling hacker?",
+                answers: ["Seprioto Brian", "Caballero Christian"],
+                correct: 0 // index of the correct answer
+            },
+            {
+                question: "Sino ang pinaka maasim sa BSU community?",
+                answers: ["Seprioto Brian", "Caballero Christian"],
+                correct: 0 // index of the correct answer
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+
+        function showQuestion() {
+            const quizContainer = document.getElementById('quiz');
+            const question = questions[currentQuestionIndex];
+
+            quizContainer.innerHTML = `<h2>${question.question}</h2>`;
+            question.answers.forEach((answer, index) => {
+                const button = document.createElement('button');
+                button.innerText = answer;
+                button.onclick = () => handleAnswer(index);
+                quizContainer.appendChild(button);
+            });
+        }
+
+        function handleAnswer(selectedIndex) {
+            const question = questions[currentQuestionIndex];
+            if (selectedIndex === question.correct) {
+                currentQuestionIndex++;
+                if (currentQuestionIndex < questions.length) {
+                    showQuestion();
+                } else {
+                    document.getElementById('quiz').innerHTML = "<h2>Congrats! Kilala mo pala kung sino ang pinakatanga.</h2>";
+                }
+            } else {
+                const buttons = document.querySelectorAll('button');
+                // Swap the button text without proceeding
+                const temp = buttons[0].innerText;
+                buttons[0].innerText = buttons[1].innerText;
+                buttons[1].innerText = temp;
+            }
+        }
+
+        showQuestion(); // Start the quiz
+    </script>
+
+</body>
+</html>
